@@ -2,6 +2,7 @@ class AppointmentsController < ApplicationController
   def index
     @appointments = Appointment.order('appt_time ASC')
     @appointment = Appointment.new
+    render json: @appointments
   end
 
   def create
@@ -11,6 +12,11 @@ class AppointmentsController < ApplicationController
     else
       render json: @appointment.errors, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @appointment = Appointment.find(params[:id])
+    render json: @appointment
   end
 
   private
